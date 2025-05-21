@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obsidian.LOL - Gorilla Tag Mod Menu</title>
+  <!-- Open Graph Meta Tags for Embed -->
+  <meta property="og:title" content="Obsidian.LOL">
+  <meta property="og:description" content="Elevate your Gorilla Tag experience with the ultimate mod menu!">
+  <meta property="og:image" content="https://cdn.discordapp.com/icons/1351655661519245422/a1072300cfde5f88e7a155393cd1e9bc.webp?size=640&width=640&height=640">
+  <meta property="og:url" content="https://obsidian.lol">
+  <meta property="og:type" content="website">
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="https://cdn.discordapp.com/icons/1351655661519245422/a1072300cfde5f88e7a155393cd1e9bc.webp?size=640&width=640&height=640">
+  <style>
+    :root {
+      --cyan-300: #67e8f9;
+      --cyan-400: #22d3ee;
+      --cyan-500: #06b6d4;
+      --cyan-600: #0891b2;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-900: #111827;
+    }
+    body {
+      background: #1a1a1a;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-6 { gap: 1.5rem; }
+    .gap-10 { gap: 2.5rem; }
+    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+    .text-5xl { font-size: 3rem; line-height: 1; }
+    .text-7xl { font-size: 4.5rem; line-height: 1; }
+    .font-bold { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+    .text-cyan-300 { color: var(--cyan-300); }
+    .text-cyan-400 { color: var(--cyan-400); }
+    .text-gray-100 { color: var(--gray-100); }
+    .text-gray-400 { color: var(--gray-400); }
+    .bg-cyan-500 { background-color: var(--cyan-500); }
+    .hover\:bg-cyan-600:hover { background-color: var(--cyan-600); }
+    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+    .px-12 { padding-left: 3rem; padding-right: 3rem; }
+    .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-10 { margin-bottom: 2.5rem; }
+    .mt-20 { margin-top: 5rem; }
+    .rounded-full { border-radius: 9999px; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .transition-all { transition: all 0.3s ease; }
+    .hover-scale:hover { transform: scale(1.03); }
+    .bubble-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .glow-effect {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0) 75%);
+      filter: blur(60px);
+      z-index: -5;
+      opacity: 0.8;
+    }
+    .bubble {
+      position: absolute;
+      background: rgba(0, 255, 255, 0.3);
+      border-radius: 50%;
+      filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.5;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-300px); opacity: 0.8; }
+      100% { transform: translateY(0); opacity: 0.5; }
+    }
+    .bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; top: 20%; animation-duration: 8s; }
+    .bubble:nth-child(2) { width: 100px; height: 100px; left: 30%; top: 70%; animation-duration: 10s; animation-delay: 1s; }
+    .bubble:nth-child(3) { width: 60px; height: 60px; left: 50%; top: 40%; animation-duration: 9s; animation-delay: 2s; }
+    .bubble:nth-child(4) { width: 90px; height: 90px; left: 70%; top: 20%; animation-duration: 8s; animation-delay: 0.5s; }
+    .bubble:nth-child(5) { width: 70px; height: 70px; left: 90%; top: 60%; animation-duration: 10s; animation-delay: 1.5s; }
+    .nav {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav a {
+      color: var(--gray-100);
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: color 0.3s ease;
+    }
+    .nav a:hover {
+      color: var(--cyan-400);
+    }
+    .nav .dropdown-container {
+      position: relative;
+    }
+    .nav .dropdown-btn {
+      color: var(--gray-100);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .nav .dropdown-btn:hover {
+      color: var(--cyan-400);
+    }
+    .nav .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 0.5rem;
+      padding: 0.5rem 0;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 100;
+    }
+    .nav .dropdown-container:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .nav .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: var(--gray-100);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .nav .dropdown-menu a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--cyan-300);
+    }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 0.5rem;
+    }
+    .feature-card {
+      flex: 1;
+      padding: 1.5rem;
+      text-align: center;
+      animation: slideIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    .feature-card:nth-child(1) { animation-delay: 0.2s; }
+    .feature-card:nth-child(2) { animation-delay: 0.4s; }
+    .feature-card:nth-child(3) { animation-delay: 0.6s; }
+    @keyframes slideIn {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-out forwards;
+      opacity: 0;
+    }
+    .fade-in:nth-child(1) { animation-delay: 0.2s; }
+    .fade-in:nth-child(2) { animation-delay: 0.4s; }
+    .fade-in:nth-child(3) { animation-delay: 0.6s; }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+    .font-semibold { font-weight: 600; }
+    a { text-decoration: none; }
+    .download-link, .discord-link {
+      color: #000;
+    }
+    .download-link:hover, .discord-link:hover {
+      color: #000;
+    }
+    .feature-section {
+      margin-bottom: 3rem;
+    }
+    .feature-section h2 {
+      margin-bottom: 1.5rem;
+    }
+    .feature-list {
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .feature-list ul {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
+      color: var(--gray-100);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="bubble-background">
+    <div class="glow-effect"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <!-- Download Section (Default View) -->
+  <div id="download" class="hero">
+    <h1 class="text-7xl font-extrabold text-cyan-300 mb-6 fade-in">Obsidian.LOL</h1>
+    <p class="text-4xl mb-10 text-gray-100 fade-in">Elevate your Gorilla Tag experience with the ultimate mod menu!</p>
+    <a href="https://file-na-lax-1.gofile.io/download/web/772c657e-93de-420f-a2fd-1719e10cadec/Obsidian%20V3.5.0.dll" class="bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-4 px-12 rounded-full transition-all hover-scale text-2xl fade-in download-link">
+      Inject
+    </a>
+  </div>
+
+</html>
